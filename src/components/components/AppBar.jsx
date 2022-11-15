@@ -2,8 +2,8 @@ import { View, StyleSheet, Pressable, ScrollView } from "react-native";
 import Constants from "expo-constants";
 import AppBarTab from "./AppBarTab";
 import { useApolloClient, useQuery } from "@apollo/client";
-import { ME } from "../graphql/queries";
-import AuthStorageContext from "../context/AuthStorageContext";
+import { ME } from "../../graphql/queries";
+import AuthStorageContext from "../../context/AuthStorageContext";
 import { useContext } from "react";
 
 const styles = StyleSheet.create({
@@ -39,15 +39,35 @@ const AppBar = ({ navigation }) => {
   };
 
   const result = useQuery(ME);
-  //console.log(result);
+  //
   return (
     <View style={styles.container}>
       <ScrollView horizontal>
         <Pressable
-          onPress={() => navigation.navigate("Repo")}
+          onPress={() => navigation.navigate("RepoList")}
           style={styles.items}
         >
           <AppBarTab text={"Repositories"} />
+        </Pressable>
+
+        <Pressable
+          onPress={() => navigation.navigate("CreateReview")}
+          style={[
+            styles.items,
+            { display: `${result.data && result.data.me ? "" : "none"} ` },
+          ]}
+        >
+          <AppBarTab text={"Create review"} />
+        </Pressable>
+
+        <Pressable
+          onPress={() => navigation.navigate("MyReviews")}
+          style={[
+            styles.items,
+            { display: `${result.data && result.data.me ? "" : "none"} ` },
+          ]}
+        >
+          <AppBarTab text={"My reviews"} />
         </Pressable>
 
         <Pressable
@@ -58,6 +78,16 @@ const AppBar = ({ navigation }) => {
           ]}
         >
           <AppBarTab text={"Sign in"} />
+        </Pressable>
+
+        <Pressable
+          onPress={() => navigation.navigate("SignUp")}
+          style={[
+            styles.items,
+            { display: `${result.data && result.data.me ? "none" : ""} ` },
+          ]}
+        >
+          <AppBarTab text={"Sign up"} />
         </Pressable>
 
         <Pressable

@@ -6,7 +6,6 @@ const useRepositories = () => {
   const getrepos = useQuery(GET_REPOSITORIES, {
     fetchPolicy: "cache-and-network",
   });
-  console.log("custom hook render");
 
   //const fetchRepositories = async () => {
   //setLoading(true);

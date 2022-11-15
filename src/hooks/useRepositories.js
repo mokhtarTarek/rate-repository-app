@@ -1,8 +1,16 @@
 import { useQuery } from "@apollo/client";
-import { GET_REPOSITORIES } from "../graphql/queries";
 
-const useRepositories = () => {
-  return useQuery(GET_REPOSITORIES, {
+const useRepositories = (QUERY_NAME, variables) => {
+  // this will log twice since the state of the iseQuery will changes
+
+  return useQuery(QUERY_NAME, {
+    // variables: {
+    //   id: id,
+    //   orderBy: "RATING_AVERAGE",
+    //   orderDirection: "DESC",
+    // },
+    variables,
+    //skip: !id,
     fetchPolicy: "cache-and-network",
   });
 };

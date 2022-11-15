@@ -2,9 +2,9 @@ import React from "react";
 import * as yup from "yup";
 import { View, Button, Pressable, StyleSheet, Text } from "react-native";
 import { Form, Formik, useField } from "formik";
-import FormikTextInput from "./FormikTextInput";
-import theme from "../theme";
-import Notify from "./Notify";
+import FormikTextInput from "../components/FormikTextInput";
+import theme from "../../theme";
+import Notify from "../components/Notify";
 
 const styles = StyleSheet.create({
   button: {
@@ -33,8 +33,8 @@ function LoginForm({ onSubmit, errorMsg }) {
   };
 
   // const onSubmit = (values) => {
-  //   console.log(values.username);
-  //   console.log(values.password);
+  //
+  //
   //   submit(values);
   // };
   const validationSchema = yup.object().shape({
@@ -45,7 +45,7 @@ function LoginForm({ onSubmit, errorMsg }) {
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={onSubmit} //defaul params (values)
+      onSubmit={onSubmit} //defaults params are values inputs
     >
       {({ handleChange, handleBlur, handleSubmit, values }) => (
         // <View>

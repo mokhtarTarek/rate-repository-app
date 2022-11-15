@@ -1,11 +1,15 @@
 import Constants from "expo-constants";
 import { Text, StyleSheet, View, Button } from "react-native";
-import AppBar from "./AppBar";
-import RepositoryList from "./RepositoryList";
+import AppBar from "../components/AppBar";
+import RepositoryList from "../screens/RepositoryList";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import SignIn from "./SignIn";
+import RepoDetails from "./RepoDetails";
+import ReviewForm from "./ReviewForm";
+import SignupForm from "./SignupForm";
+import UserReviews from "./UserReviews";
 
 const Stack = createNativeStackNavigator();
 
@@ -41,8 +45,12 @@ const Main = () => {
           }}
         >
           <Stack.Screen name="Home" component={HomeScreen} />
-          <Stack.Screen name="SignIn" component={SignIn} />
-          <Stack.Screen name="Repo" component={RepositoryList} />
+          {/* <Stack.Screen name="SignIn" component={SignIn} />
+          <Stack.Screen name="RepoList" component={RepositoryList} />
+          <Stack.Screen name="RepoDetails" component={RepoDetails} />
+          <Stack.Screen name="CreateReview" component={ReviewForm} />
+          <Stack.Screen name="SignUp" component={SignupForm} />
+          <Stack.Screen name="MyReviews" component={UserReviews} /> */}
         </Stack.Navigator>
       </NavigationContainer>
     </View>

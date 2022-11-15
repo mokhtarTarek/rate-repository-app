@@ -43,8 +43,6 @@ const doShopping = async () => {
   const productsA = await shoppingCartA.getProducts();
   const productsB = await shoppingCartB.getProducts();
 
-  console.log(productsA, productsB);
-
   await shoppingCartA.clearProducts();
   await shoppingCartB.clearProducts();
 };

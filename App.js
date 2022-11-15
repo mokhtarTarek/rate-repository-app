@@ -1,10 +1,12 @@
-import Main from "./src/components/Main";
+import Main from "./src/components/screens/Main";
 import { ApolloProvider } from "@apollo/client";
 import createApolloClient from "./src/utils/appoloClient";
+import { Provider as PaperProvider } from "react-native-paper";
 import Constants from "expo-constants";
 import { StatusBar } from "expo-status-bar";
 import AuthStorage from "./src/utils/authStorage";
 import AuthStorageContext from "./src/context/AuthStorageContext";
+import Par from "./src/utils/par";
 
 const authStorage = new AuthStorage();
 // Provided the storage instance for the createApolloClient function as an argument.
@@ -15,13 +17,15 @@ const apolloClient = createApolloClient(authStorage);
 
 const App = () => {
   // Constants manifest contain the app config : look at app.config.js file
-  console.log(Constants.manifest);
+  //
   return (
     <>
       <ApolloProvider client={apolloClient}>
         <AuthStorageContext.Provider value={authStorage}>
-          <Main />
-          <StatusBar style="auto" />
+          <PaperProvider>
+            <Main />
+            <StatusBar style="auto" />
+          </PaperProvider>
         </AuthStorageContext.Provider>
       </ApolloProvider>
     </>

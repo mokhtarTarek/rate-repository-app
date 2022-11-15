@@ -9,6 +9,7 @@ const useSignIn = () => {
   const [authenticate, result] = useMutation(LOGIN);
 
   const signIn = async ({ username, password }) => {
+    // LOOK AT THE MUTATION QUERY :
     const { data } = await authenticate({
       variables: { username, password },
     });
@@ -16,7 +17,7 @@ const useSignIn = () => {
     apolloClient.resetStore();
     return data;
   };
-  //console.log(result);
+  //
   /*
    * The return value of the hook should be a tuple [signIn, result]
    * where result is the mutations result as it is returned by the useMutation hook

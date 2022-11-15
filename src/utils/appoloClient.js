@@ -1,8 +1,9 @@
 //////////// CONNECT TO APPOLO SERVER //////////////////////////////////////
 
-import { ApolloClient, InMemoryCache, createHttpLink } from "@apollo/client";
 import Constants from "expo-constants";
+import { ApolloClient, InMemoryCache, createHttpLink } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
+import { relayStylePagination } from "@apollo/client/utilities";
 
 const { appolo_uri } = Constants.manifest.extra;
 const httpLink = createHttpLink({
@@ -10,12 +11,30 @@ const httpLink = createHttpLink({
   uri: appolo_uri,
 });
 
+const cache = new InMemoryCache({
+  typePolicies: {
+    //data.repositories
+    Query: {
+      fields: {
+        repositories: relayStylePagination(),
+      },
+    },
+    //data.repository.reviews
+    Repository: {
+      fields: {
+        reviews: relayStylePagination(),
+      },
+    },
+  },
+});
+
 const createApolloClient = (authStorage) => {
   // https://www.apollographql.com/docs/react/api/link/apollo-link-context
+  // setContext to set new headers variables like authorization...
   const authLink = setContext(async (_, { headers }) => {
     try {
       const accessToken = await authStorage.getAccessToken();
-      //console.log(accessToken);
+      //
       return {
         headers: {
           ...headers,
@@ -23,7 +42,6 @@ const createApolloClient = (authStorage) => {
         },
       };
     } catch (e) {
-      console.log(e);
       return {
         headers,
       };
@@ -32,7 +50,8 @@ const createApolloClient = (authStorage) => {
 
   return new ApolloClient({
     link: authLink.concat(httpLink),
-    cache: new InMemoryCache(),
+    // cache: new InMemoryCache(),
+    cache,
   });
 
   // return new ApolloClient({
